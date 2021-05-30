@@ -1,0 +1,33 @@
+{
+    "name": "codememory/http-foundation",
+    "description": "Http",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Danil",
+            "email": "kostynd1@gmail.com"
+        }
+    ],
+    "require": {
+        "codememory/screw": "^2.0",
+        "codememory/support": "1.2",
+        "symfony/http-foundation": "^5.2",
+        "codememory/unit-conversion": "2.0",
+        "codememory/fs": "^1.1",
+        "codememory/json-parser": "^1.0",
+        "codememory/config": "^1.0",
+        "codememory/global-config": "^1.0",
+        "ext-redis": "*",
+        "codememory/date-time": "^1.0",
+        "codememory/view": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codememory\\HttpFoundation\\": ""
+        },
+        "files": ["helpers.php"]
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.2"
+    }
+}
