@@ -432,10 +432,12 @@ class Header
     public function getAll(): array
     {
 
+	$url = new Url();
+
         return array_merge(
             apache_request_headers(),
             apache_response_headers(),
-            get_headers(Url::hostWithSchema(Url::getHostIp()), 1)
+            get_headers($url->hostWithSchema($url->getHostIp()), 1)
         );
 
     }
