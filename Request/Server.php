@@ -23,10 +23,10 @@ class Server
      *
      * @param array $parameters
      */
-    public function __construct(array &$parameters = [])
+    public function __construct(array $parameters = [])
     {
 
-        $this->parameters = &$parameters;
+        $this->parameters = $parameters;
 
     }
 
