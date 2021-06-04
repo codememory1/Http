@@ -21,12 +21,12 @@ class Response implements ResponseInterface
     /**
      * @var Download
      */
-    private Download $download;
+    protected Download $download;
 
     /**
      * @var Header
      */
-    private Header $header;
+    protected Header $header;
 
     /**
      * @var int
