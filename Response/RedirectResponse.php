@@ -47,7 +47,7 @@ class RedirectResponse extends Response implements RedirectInterface
         $this->setHeaders($headers)->setResponseCode($responseCode);
 
         if (301 === $responseCode) {
-            $this->header->removeHeaders('cache-control');
+            $this->header->removeHeaders('Cache-Control');
         }
 
         $this->sendHeaders();
@@ -69,22 +69,10 @@ class RedirectResponse extends Response implements RedirectInterface
     /**
      * @inheritDoc
      */
-    public function setPreviousUrl(string $url): RedirectInterface
-    {
-
-        $this->request->session->set(self::SESSION_NAME_PREVIOUS_URL, $url);
-
-        return $this;
-
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function previous(int $responseCode = 302, array $headers = []): RedirectInterface
     {
 
-        $previousUrl = $this->request->session->get(self::SESSION_NAME_PREVIOUS_URL);
+        $previousUrl = $this->request->header->get('Referer');
 
         if (null === $previousUrl) {
             return $this->refresh($responseCode, $headers);

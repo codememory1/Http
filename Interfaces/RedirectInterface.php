@@ -38,21 +38,9 @@ interface RedirectInterface
     public function refresh(int $responseCode = 302, array $headers = []): RedirectInterface;
 
     /**
-     * =>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>
-     * Write the current url to the session as the previous one
-     * <=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=
-     *
-     * @param string $url
-     *
-     * @return RedirectInterface
-     */
-    public function setPreviousUrl(string $url): RedirectInterface;
-
-    /**
-     * =>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>
-     * Redirect to the previous url, if the url does not exist
-     * in the session, the redirect will be to the current page
-     * <=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=
+     * =>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>
+     * Redirect to the previous page
+     * <=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=<=
      *
      * @param int   $responseCode
      * @param array $headers
