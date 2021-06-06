@@ -2,6 +2,9 @@
 
 namespace Codememory\HttpFoundation\Client\Session\Storages;
 
+use Codememory\Database\Redis\Connections\Connection;
+use Codememory\Database\Redis\Exceptions\IncorrectRedisHostOrPortException;
+use Codememory\Database\Redis\Exceptions\IncorrectRedisPasswordOrUsernameException;
 use Codememory\HttpFoundation\Client\Session\Utils;
 use Codememory\HttpFoundation\Interfaces\SessionStorageHandlerInterface;
 use Redis;
@@ -35,31 +38,17 @@ class RedisStorage implements SessionStorageHandlerInterface
 
     /**
      * @inheritDoc
+     * @throws IncorrectRedisHostOrPortException
+     * @throws IncorrectRedisPasswordOrUsernameException
      */
     public function storage(): SessionStorageInterface
     {
 
-        return new NativeSessionStorage([], new RedisSessionHandler($this->connect(), [
+        $redisConnection = new Connection(new Redis());
+
+        return new NativeSessionStorage([], new RedisSessionHandler($redisConnection->makeConnection(), [
             'prefix' => Utils::PREFIX
         ]));
-
-    }
-
-    /**
-     * @return Redis
-     */
-    private function connect(): Redis
-    {
-
-        $redis = new Redis();
-
-        $redis->connect(env('redis.host'), env('redis.port'));
-
-        if(null !== env('redis.password')) {
-            $redis->auth(env('redis.password'));
-        }
-
-        return $redis;
 
     }
 

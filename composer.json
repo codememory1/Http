@@ -19,7 +19,8 @@
         "codememory/global-config": "^1.1.1",
         "ext-redis": "*",
         "codememory/date-time": "^1.0.1",
-        "codememory/view": "^1.0.1"
+        "codememory/view": "^1.0.1",
+        "codememory/redis": "^1.0"
     },
     "autoload": {
         "psr-4": {
