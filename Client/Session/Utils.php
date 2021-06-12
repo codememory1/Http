@@ -11,10 +11,13 @@ use Codememory\Components\Environment\Exceptions\ParsingErrorException;
 use Codememory\Components\Environment\Exceptions\VariableParsingErrorException;
 use Codememory\Components\GlobalConfig\GlobalConfig;
 use Codememory\FileSystem\Interfaces\FileInterface;
+use Codememory\HttpFoundation\Client\Session\Storages\FileStorage;
+use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 
 /**
  * Class Utils
+ *
  * @package Codememory\HttpFoundation\Client\Session
  *
  * @author  Codememory
@@ -49,7 +52,7 @@ class Utils
 
         $config = new Config($filesystem);
 
-        $this->config = $config->open(GlobalConfig::get('http.configName'));
+        $this->config = $config->open(GlobalConfig::get('http.configName'), $this->defaultConfig());
 
     }
 
@@ -95,6 +98,25 @@ class Utils
     {
 
         return $this->config->get('session.file.pathToSave') ?: self::DEFAULT_PATH;
+
+    }
+
+    /**
+     * @return array[]
+     */
+    #[ArrayShape(['session' => "array"])]
+    private function defaultConfig(): array
+    {
+
+        return [
+            'session' => [
+                'typeSave' => 'file',
+                'file'     => [
+                    'handlerNamespace' => FileStorage::class,
+                    'pathSave'         => 'storage/sessions/'
+                ]
+            ]
+        ];
 
     }
 
