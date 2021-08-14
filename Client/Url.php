@@ -264,6 +264,20 @@ class Url
     }
 
     /**
+     * @return string|null
+     */
+    public function getSubdomain(): ?string
+    {
+
+        if(preg_match('/(?<subdomain>.*)\.(.*)\.(.*)/', $this->getHost(), $match)) {
+            return $match['subdomain'];
+        }
+
+        return null;
+
+    }
+
+    /**
      * @param string $url
      *
      * @return false|int
