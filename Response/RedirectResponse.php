@@ -72,7 +72,7 @@ class RedirectResponse extends Response implements RedirectInterface
     public function previous(int $responseCode = 302, array $headers = []): RedirectInterface
     {
 
-        $previousUrl = $this->request->header->get('Referer');
+        $previousUrl = $this->request->header->getHeader('Referer');
 
         if (null === $previousUrl) {
             return $this->refresh($responseCode, $headers);
