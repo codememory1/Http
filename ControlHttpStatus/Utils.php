@@ -3,14 +3,8 @@
 namespace Codememory\HttpFoundation\ControlHttpStatus;
 
 use Codememory\Components\Configuration\Config;
-use Codememory\Components\Configuration\Exceptions\ConfigNotFoundException;
-use Codememory\Components\Configuration\Exceptions\NotOpenConfigException;
-use Codememory\Components\Environment\Exceptions\EnvironmentVariableNotFoundException;
-use Codememory\Components\Environment\Exceptions\IncorrectPathToEnviException;
-use Codememory\Components\Environment\Exceptions\ParsingErrorException;
-use Codememory\Components\Environment\Exceptions\VariableParsingErrorException;
+use Codememory\Components\Configuration\Configuration;
 use Codememory\Components\GlobalConfig\GlobalConfig;
-use Codememory\FileSystem\File;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
@@ -34,24 +28,16 @@ class Utils
 
     /**
      * Utils constructor.
-     * @throws EnvironmentVariableNotFoundException
-     * @throws IncorrectPathToEnviException
-     * @throws ParsingErrorException
-     * @throws VariableParsingErrorException
-     * @throws ConfigNotFoundException
      */
     public function __construct()
     {
 
-        $config = new Config(new File());
-
-        $this->config = $config->open(GlobalConfig::get('controlHttpStatus.configName'));
+        $this->config = Configuration::getInstance()->open(GlobalConfig::get('controlHttpStatus.configName'));
 
     }
 
     /**
      * @return array
-     * @throws NotOpenConfigException
      */
     #[ArrayShape(['priority' => "\null|string", 'engine' => "\null|string", 'class' => "\null|string"])]
     public function getGeneral(): array
@@ -69,12 +55,11 @@ class Utils
 
     /**
      * @return array
-     * @throws NotOpenConfigException
      */
     public function getHttpCodes(): array
     {
 
-        $keys = array_keys($this->config->get());
+        $keys = array_keys($this->config->all());
 
         foreach ($keys as $index => $value) {
             if (!is_int($value)) {
@@ -90,7 +75,6 @@ class Utils
      * @param int $code
      *
      * @return array
-     * @throws NotOpenConfigException
      */
     public function getHttpStatusData(int $code): array
     {

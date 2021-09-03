@@ -3,7 +3,6 @@
 namespace Codememory\HttpFoundation\ControlHttpStatus;
 
 use Closure;
-use Codememory\Components\Configuration\Exceptions\NotOpenConfigException;
 use Codememory\Components\View\Engines\BigEngine;
 use Codememory\Components\View\Engines\TwigEngine;
 use Codememory\HttpFoundation\Response\Response;
@@ -58,7 +57,7 @@ class ControlResponseCode
     }
 
     /**
-     * @throws NotOpenConfigException
+     * @return void
      */
     public function trackResponseStatus(): void
     {
@@ -90,7 +89,6 @@ class ControlResponseCode
 
     /**
      * @return array
-     * @throws NotOpenConfigException
      */
     private function getResponseCodeData(): array
     {
@@ -101,7 +99,6 @@ class ControlResponseCode
 
     /**
      * @return bool
-     * @throws NotOpenConfigException
      */
     private function existResponseCodeInConfiguration(): bool
     {

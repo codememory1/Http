@@ -3,14 +3,8 @@
 namespace Codememory\HttpFoundation\Client\Session;
 
 use Codememory\Components\Configuration\Config;
-use Codememory\Components\Configuration\Exceptions\ConfigNotFoundException;
-use Codememory\Components\Configuration\Exceptions\NotOpenConfigException;
-use Codememory\Components\Environment\Exceptions\EnvironmentVariableNotFoundException;
-use Codememory\Components\Environment\Exceptions\IncorrectPathToEnviException;
-use Codememory\Components\Environment\Exceptions\ParsingErrorException;
-use Codememory\Components\Environment\Exceptions\VariableParsingErrorException;
+use Codememory\Components\Configuration\Configuration;
 use Codememory\Components\GlobalConfig\GlobalConfig;
-use Codememory\FileSystem\Interfaces\FileInterface;
 use Codememory\HttpFoundation\Client\Session\Storages\FileStorage;
 use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
@@ -38,27 +32,16 @@ class Utils
 
     /**
      * Utils constructor.
-     *
-     * @param FileInterface $filesystem
-     *
-     * @throws EnvironmentVariableNotFoundException
-     * @throws IncorrectPathToEnviException
-     * @throws ParsingErrorException
-     * @throws VariableParsingErrorException
-     * @throws ConfigNotFoundException
      */
-    public function __construct(FileInterface $filesystem)
+    public function __construct()
     {
 
-        $config = new Config($filesystem);
-
-        $this->config = $config->open(GlobalConfig::get('http.configName'), $this->defaultConfig());
+        $this->config = Configuration::getInstance()->open(GlobalConfig::get('http.configName'), $this->defaultConfig());
 
     }
 
     /**
      * @return string
-     * @throws NotOpenConfigException
      */
     public function getTypeSave(): string
     {
@@ -69,7 +52,6 @@ class Utils
 
     /**
      * @return string
-     * @throws NotOpenConfigException
      */
     public function getHandlerNamespace(): string
     {
@@ -92,7 +74,6 @@ class Utils
 
     /**
      * @return string
-     * @throws NotOpenConfigException
      */
     public function getPath(): string
     {

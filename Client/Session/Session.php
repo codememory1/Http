@@ -2,13 +2,6 @@
 
 namespace Codememory\HttpFoundation\Client\Session;
 
-use Codememory\Components\Configuration\Exceptions\ConfigNotFoundException;
-use Codememory\Components\Configuration\Exceptions\NotOpenConfigException;
-use Codememory\Components\Environment\Exceptions\EnvironmentVariableNotFoundException;
-use Codememory\Components\Environment\Exceptions\IncorrectPathToEnviException;
-use Codememory\Components\Environment\Exceptions\ParsingErrorException;
-use Codememory\Components\Environment\Exceptions\VariableParsingErrorException;
-use Codememory\FileSystem\File;
 use Codememory\HttpFoundation\Interfaces\SessionStorageHandlerInterface;
 use ReflectionClass;
 use ReflectionException;
@@ -47,22 +40,16 @@ class Session
 
     /**
      * Session constructor.
-     * @throws ConfigNotFoundException
-     * @throws EnvironmentVariableNotFoundException
-     * @throws IncorrectPathToEnviException
-     * @throws ParsingErrorException
-     * @throws VariableParsingErrorException
      */
     public function __construct()
     {
 
-        $this->utils = new Utils(new File());
+        $this->utils = new Utils();
 
     }
 
     /**
      * @return SessionInterface
-     * @throws NotOpenConfigException
      * @throws ReflectionException
      */
     public function getSession(): SessionInterface
@@ -78,7 +65,6 @@ class Session
 
     /**
      * @return SessionStorageHandlerInterface
-     * @throws NotOpenConfigException
      * @throws ReflectionException
      */
     private function getStorage(): SessionStorageHandlerInterface
