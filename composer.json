@@ -15,12 +15,12 @@
         "codememory/unit-conversion": "2.0",
         "codememory/fs": "^1.1.2",
         "codememory/json-parser": "^1.0",
-        "codememory/config": "^1.1.1",
+        "codememory/config": "2.0",
         "codememory/global-config": "^1.1.1",
         "ext-redis": "*",
         "codememory/date-time": "^1.0.1",
-        "codememory/view": "^1.0.1",
-        "codememory/redis": "^1.0"
+        "codememory/redis": "^1.0",
+        "codememory/view": "^1.0"
     },
     "autoload": {
         "psr-4": {
