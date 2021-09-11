@@ -115,9 +115,9 @@ interface ResponseInterface
      * @param int   $responseCode
      * @param array $headers
      *
-     * @return ResponseInterface
+     * @return void
      */
-    public function json(mixed $data, int $responseCode = 200, array $headers = []): ResponseInterface;
+    public function json(mixed $data, int $responseCode = 200, array $headers = []): void;
 
     /**
      * =>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>

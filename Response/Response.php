@@ -8,6 +8,7 @@ use Codememory\HttpFoundation\Client\Header\Header;
 use Codememory\HttpFoundation\Exceptions\DownloadableResourceNotFoundException;
 use Codememory\HttpFoundation\Exceptions\HeaderNotFoundInSubException;
 use Codememory\HttpFoundation\Interfaces\ResponseInterface;
+use JetBrains\PhpStorm\NoReturn;
 
 /**
  * Class Response
@@ -170,7 +171,8 @@ class Response implements ResponseInterface
      * @inheritDoc
      * @throws JsonErrorException
      */
-    public function json(mixed $data, int $responseCode = 200, array $headers = []): ResponseInterface
+    #[NoReturn]
+    public function json(mixed $data, int $responseCode = 200, array $headers = []): void
     {
 
         $jsonParser = new JsonParser();
@@ -182,7 +184,7 @@ class Response implements ResponseInterface
             ->create($dataInJson, $responseCode, $headers)
             ->sendContentAndHeaders();
 
-        return $this;
+        die;
 
     }
 
@@ -195,10 +197,7 @@ class Response implements ResponseInterface
 
         $download = $this->download->accept($file);
 
-        if (null !== $download) {
-            $download->rename($rename);
-        }
-
+        $download?->rename($rename);
         $download->addHeaders($headers)->make();
 
         return $this;
