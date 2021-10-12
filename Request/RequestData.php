@@ -6,6 +6,7 @@ use Codememory\Support\Arr;
 
 /**
  * Class RequestData
+ *
  * @package Codememory\HttpFoundation\Request
  *
  * @author  Codememory
@@ -25,6 +26,8 @@ class RequestData
      */
     public function __construct(array &$data)
     {
+
+        $this->passOverValues($data);
 
         $this->data = &$data;
 
@@ -48,7 +51,7 @@ class RequestData
 
         if ($checkExistKey) {
             if (!array_key_exists($key, $this->data)) {
-                $this->data[$key] = $value;
+                $this->data[$key] = $this->decodeIfJson($value);
 
                 return true;
             }
@@ -56,7 +59,7 @@ class RequestData
             return false;
         }
 
-        $this->data[$key] = $value;
+        $this->data[$key] = $this->decodeIfJson($value);
 
         return true;
 
@@ -89,6 +92,40 @@ class RequestData
     {
 
         return $this->data;
+
+    }
+
+    /**
+     * @param array $data
+     */
+    private function passOverValues(array &$data): void
+    {
+
+        foreach ($data as &$value) {
+            if (!is_array($value)) {
+                $value = $this->decodeIfJson($value);
+            } else {
+                $this->passOverValues($value);
+            }
+        }
+
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return bool
+     */
+    private function decodeIfJson(string $value): bool
+    {
+
+        $result = json_decode($value);
+
+        if (json_last_error() === JSON_ERROR_NONE) {
+            return $result;
+        }
+
+        return $value;
 
     }
 

@@ -417,7 +417,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * @throws NotOpenConfigException
+     * @return void
      * @throws ReflectionException
      */
     private function initialization(): void
