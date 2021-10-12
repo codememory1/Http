@@ -114,9 +114,9 @@ class RequestData
     /**
      * @param string $value
      *
-     * @return bool
+     * @return array|string
      */
-    private function decodeIfJson(string $value): bool
+    private function decodeIfJson(string $value): array|string
     {
 
         $result = json_decode($value);
