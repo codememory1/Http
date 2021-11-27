@@ -161,7 +161,7 @@ class Response implements ResponseInterface
     public function sendContentAndHeaders(): ResponseInterface
     {
 
-        $this->sendContent()->sendHeaders();
+        $this->sendHeaders()->sendContent();
 
         return $this;
 
