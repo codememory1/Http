@@ -119,7 +119,7 @@ class RequestData
     private function decodeIfJson(string $value): array|string
     {
 
-        $result = json_decode($value);
+        $result = json_decode($value, true);
 
         if (json_last_error() === JSON_ERROR_NONE) {
             return $result;
