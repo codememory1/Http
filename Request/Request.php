@@ -2,7 +2,6 @@
 
 namespace Codememory\HttpFoundation\Request;
 
-use Codememory\Components\Configuration\Exceptions\NotOpenConfigException;
 use Codememory\Components\JsonParser\Exceptions\JsonErrorException;
 use Codememory\Components\JsonParser\JsonParser;
 use Codememory\HttpFoundation\Client\Cookie\Cookie;
@@ -80,7 +79,6 @@ class Request implements RequestInterface
 
     /**
      * Request constructor.
-     * @throws NotOpenConfigException
      * @throws ReflectionException
      */
     public function __construct()
@@ -197,10 +195,20 @@ class Request implements RequestInterface
     /**
      * @inheritDoc
      */
-    public function get(string $key, mixed $default = null): mixed
+    public function get(string $key, mixed $default = null, bool $trim = true, bool $escapingHtml = false): mixed
     {
 
-        return Arr::set($this->requestData->all())::get($key) ?: $default;
+        $value = Arr::set($this->requestData->all())::get($key) ?: $default;
+
+        if($trim) {
+            $value = trim($value);
+        }
+
+        if($escapingHtml) {
+            $value = htmlspecialchars($value);
+        }
+
+        return $value;
 
     }
 
