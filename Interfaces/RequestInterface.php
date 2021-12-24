@@ -90,10 +90,12 @@ interface RequestInterface
      *
      * @param string     $key
      * @param mixed|null $default
+     * @param bool       $trim
+     * @param bool       $escapingHtml
      *
      * @return mixed
      */
-    public function get(string $key, mixed $default = null): mixed;
+    public function get(string $key, mixed $default = null, bool $trim = true, bool $escapingHtml = false): mixed;
 
     /**
      * =>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>
